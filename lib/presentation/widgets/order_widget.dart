@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
+import '../../data/models/order_element.dart';
+
 class OrderWidget extends StatelessWidget {
+  final OrderElement orderElement;
   const OrderWidget({
-    super.key,
+    super.key, required this.orderElement,
   });
 
   @override
@@ -28,11 +31,11 @@ class OrderWidget extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Order #'+'1234', style: TextStyle(
+                Text('Order #UBS'+orderElement.id.toString(), style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),),
-                Text('Total products: '+'4', style: TextStyle(
+                Text('Total products: '+orderElement.totalProducts.toString(), style: TextStyle(
                   fontSize: 18,
                   color:Color.fromRGBO(0, 57, 116, 100),
                 ),),

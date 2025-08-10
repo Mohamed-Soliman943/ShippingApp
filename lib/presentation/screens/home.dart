@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:shipping_app/Bussiness_logic/cubit/carts_cubit.dart';
+import 'package:shipping_app/data/services/carts_service.dart';
+import '../widgets/navigation/home_widget.dart';
+import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../widgets/order_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return BlocProvider(
+  create: (context) => CartsCubit(CartsService())..getCart(),
+  child: Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: Text('ShippingApp',
@@ -38,73 +44,10 @@ class HomeScreen extends StatelessWidget {
             BottomNavigationBarItem(icon: Icon(Icons.history_toggle_off), label: 'History'),
             BottomNavigationBarItem(icon: Icon(Icons.person_2_outlined), label: 'Profile'),
           ]),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: 20.0),
-              child: Text('Current shipments',
-              style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-              ),),
-            ),
-            OrderWidget(),
-            Padding(
-              padding: const EdgeInsets.only(top:20,bottom: 20.0),
-              child: Text('Notifications',
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                ),),
-            ),
-            Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
+      body: HomeWidget(),
 
-                children: [
-                  Container(
-                    height: 70,
-                    width: 70,
-                    decoration: BoxDecoration(
-                      color: Colors.grey,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Icon(
-                      Icons.doorbell_rounded,
-                      size: 40,
-                    ),
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('Shipment Updates', style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),),
-                          Text('Get all updates about your shipment from here',
-                            overflow: TextOverflow.visible,
-                            maxLines: 2,
-                            style: TextStyle(
-                            fontSize: 18,
-                            color:Color.fromRGBO(0, 57, 116, 100),
-                          ),),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Icon(Icons.arrow_forward_ios_sharp),
-                ]
-            ),
-
-          ],
-        ),
-      ),
-    );
+    ),
+);
   }
 }
 
