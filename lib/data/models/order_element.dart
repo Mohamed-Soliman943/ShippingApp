@@ -1,4 +1,3 @@
-
 class OrderElement {
   final int id;
   final double total;

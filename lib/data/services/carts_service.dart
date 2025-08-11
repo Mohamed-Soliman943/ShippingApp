@@ -23,4 +23,17 @@ class CartsService {
       }
     }catch(e){print(e.toString());}
   }
+  Future<OrderElement?> searchCart(String searchValue) async {
+    Uri url= Uri.parse('https://dummyjson.com/carts/$searchValue');
+    try{
+      Response response = await dio.get(url.toString());
+      return OrderElement(
+          id: response.data['id'],
+          total: response.data['total'],
+          discountedTotal: response.data['discountedTotal'],
+          totalProducts: response.data['totalProducts'],
+          totalQuantity: response.data['totalQuantity']);
+    }catch(e){print(e.toString());}}
+
+
 }
