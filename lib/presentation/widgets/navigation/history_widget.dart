@@ -23,8 +23,8 @@ class HistoryWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
             ),
             child: TextField(
-              onChanged: (value){
-                searchValue = value;
+              onChanged: (val){
+                searchValue = val;
                 context.read<CartsCubit>().getCart();
               },
               controller: searchController,

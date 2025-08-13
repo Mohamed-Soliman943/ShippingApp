@@ -25,12 +25,7 @@ class CubitList extends StatelessWidget {
         if(state is CartsLoaded){
           return HistoryList(cartsList: state.cartsList,);
         }
-        if(state is CartsSearch){
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: OrderWidget( orderElement: state.orderElement,),
-          );
-        }
+
         return Container();
       },
     );

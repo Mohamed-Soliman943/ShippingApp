@@ -5,7 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shipping_app/data/models/order_element.dart';
 
 import '../../../Bussiness_logic/cubit/carts_cubit.dart';
+import '../../../Bussiness_logic/cubit/search_cart_cubit.dart';
 import '../../../constants/strings.dart';
+import '../../../data/services/carts_service.dart';
 import '../cart_details.dart';
 
 class TrackWidget extends StatelessWidget {
@@ -36,7 +38,8 @@ class TrackWidget extends StatelessWidget {
                       ),
                       fillColor: Color.fromRGBO(0, 57, 116, 100),
                       prefixIcon: Icon(
-                        Icons.search, color: Color.fromRGBO(0, 57, 116, 0.6),),
+                        Icons.search, color: Color.fromRGBO(0, 57, 116,
+                          0.6),),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20),
                         borderSide: BorderSide.none,
@@ -55,7 +58,7 @@ class TrackWidget extends StatelessWidget {
                   ),
                   onPressed: () {
                     searchValue = searchController.text;
-                    context.read<CartsCubit>().searchCart();
+                    context.read<SearchCartCubit>().searchCart();
                   },
                   child: Text('Track', style: TextStyle(
                     color: Colors.white,
@@ -68,20 +71,21 @@ class TrackWidget extends StatelessWidget {
             Image.network(
               'https://static.vecteezy.com/system/resources/previews/026/160/478/non_2x/fast-shipping-delivery-truck-icon-for-apps-and-websites-truck-icon-vector.jpg',
             ),
-            BlocBuilder<CartsCubit, CartsState>(
+            BlocBuilder<SearchCartCubit, SearchCartState>(
               builder: (context, state) {
-                if(state is CartsLoading){
+                if (state is SearchCartLoading) {
                   return Center(child: CircularProgressIndicator(),);
                 }
-                if(state is CartsError){
+                if (state is SearchCartError) {
                   return Center(child: Text('Error'),);
                 }
-                if(state is CartsSearch){
+                if (state is SearchCartLoaded) {
                   return CartDetails(orderElement: state.orderElement,);
                 }
-                if(state is CartsInitial){return Container();}
+                if (state is SearchCartInitial) {
+                  return Container();
+                }
                 return Container();
-
               },
             ),
           ],

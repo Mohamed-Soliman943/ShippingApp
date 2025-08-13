@@ -18,11 +18,5 @@ class CartsCubit extends Cubit<CartsState> {
       emit(CartsError());
     }
   }
-  Future<void> searchCart() async{
-    emit(CartsInitial());
-    try{
-      final cartDetails = await CartsService().searchCart(searchValue);
-      emit(CartsSearch(cartDetails??OrderElement(id: 0, total: 0, discountedTotal: 0, totalProducts: 0, totalQuantity: 0)));
-    }catch(e){emit(CartsError());}
-  }
+
 }
